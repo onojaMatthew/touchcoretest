@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import Search from "./Search";
 import { getCities } from "../store/actions/action_cities";
 import { postSearch } from "../store/actions/action_search";
+import { getCabinType } from "../store/actions/action_cabin_type";
 
 class SearchContainer extends Component{
   state = {
@@ -10,8 +11,10 @@ class SearchContainer extends Component{
   }
 
   async componentDidMount() {
+    const { getCabinType, getCities } = this.props;
     try {
-      await this.props.getCities()
+      await getCities();
+      await getCabinType();
     } catch(err) {
       this.setState({ errorMessage: err.message });
     }
@@ -23,7 +26,6 @@ class SearchContainer extends Component{
       <div>
         <Search 
           {...this.props}
-          
         />
       </div>
     );
@@ -34,13 +36,15 @@ const mapStateToProps = (state) => {
   return {
     cities: state.cities,
     search: state.search,
+    cabin: state.cabin,
   }
 }
 
 const mapDispatchToProps = (dispatch) => {
   const dispatchProps = {
     getCities: (data) => dispatch(getCities()),
-    postSearch: (data) => dispatch(postSearch(data))
+    postSearch: (data) => dispatch(postSearch(data)),
+    getCabinType: () => dispatch(getCabinType()),
   }
   return dispatchProps;
 }

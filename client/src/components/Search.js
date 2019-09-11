@@ -23,8 +23,8 @@ class Search extends Component {
   }
   
   render() {
-    const { cities } = this.props;
-    console.log(this.props, " this.props")
+    const { cities, cabin: { cabin } } = this.props;
+    const cabinTypes = cabin && cabin.body && cabin.body.data && cabin.body.data.plugins && cabin.body.data.plugins.cabin_types;
     const { 
       deptDate,
       returnDate,
@@ -76,14 +76,13 @@ class Search extends Component {
                 onChange={(e) => { this.setState({ cabinClass: e.target.value })}}
               >
                 <option>Cabin class</option>
-                {this.props.cabin.map((cabin, index) => (
-                  <option key={index}>{cabin}</option>
+                {cabinTypes && cabinTypes.map((cabin, index) => (
+                  <option key={index} value={cabin.code}>{cabin.name}</option>
                 ))}
               </select>
               <input 
                 type="number" 
-                min="13" 
-                max="120" 
+                min="0" 
                 className="search-input" 
                 placeholder="No. of adult"
                 onChange={(e) => { this.setState({ noOfAdult: e.target.value })}}
@@ -92,8 +91,7 @@ class Search extends Component {
               />
               <input 
                 type="number" 
-                min="2" 
-                max="12" 
+                min="0" 
                 className="search-input" 
                 placeholder="No. of children"
                 onChange={(e) => { this.setState({ noOfChildren: e.target.value })}}
@@ -101,7 +99,7 @@ class Search extends Component {
               />
               <input 
                 type="number" 
-                min="0" max="2" 
+                min="0"
                 className="search-input" 
                 placeholder="No. of infant"
                 onChange={(e) => { this.setState({ noOfInfant: e.target.value })}}
