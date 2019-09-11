@@ -26,3 +26,17 @@ exports.postLogin = (req, res) => {
     res.json(body)
   });
 }
+
+exports.getCabinType = (req, res) => {
+  const { email, password } = req.body.data;
+  request.get({
+    headers: { "Accept": "application/json", "Content-Type" : "application/json" },
+    url: 'http://www.ije-api.tcore.xyz/v1/plugins/all',
+  },(error, response, body) => {
+    if (error) return res.status(400).json({ error: error.message });
+    res.json(body);
+  });
+}
+//
+
+

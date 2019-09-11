@@ -1,9 +1,10 @@
 const express = require("express");
-const { getFlightData, postLogin } = require("../controller/index");
+const { getFlightData, postLogin, getCabinType } = require("../controller/index");
 
 const router = express.Router();
 
 router.get("/cities", getFlightData);
-router.post("/login", postLogin, () => { console.log("we are here") });
+router.post("/login", postLogin);
+router.get("/cabintype",getCabinType);
 
 module.exports = router;

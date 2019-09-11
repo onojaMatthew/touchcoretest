@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Button } from "react-bootstrap";
+import { Button, ButtonToolbar, Spinner } from "react-bootstrap";
 import SearchResult from "./SearchResult";
 
 class Search extends Component {
@@ -19,10 +19,12 @@ class Search extends Component {
     const { deptCity, destCity, deptDate, cabinClass, returnDate, noOfAdult, noOfChildren, noOfInfant } = this.state;
     const data = { deptCity, destCity, deptDate, cabinClass, returnDate, noOfAdult, noOfChildren, noOfInfant };
     console.log(data);
+
   }
   
   render() {
     const { cities } = this.props;
+    console.log(this.props, " this.props")
     const { 
       deptDate,
       returnDate,
@@ -110,7 +112,21 @@ class Search extends Component {
           </div>
         </div>
         <div className="mt-5">
-          <SearchResult />
+          {this.props.search.isSearchLoading === true ? (
+            <ButtonToolbar>
+              <Button variant="primary" disabled>
+                <Spinner
+                  as="span"
+                  animation="grow"
+                  size="sm"
+                  role="status"
+                  aria-hidden="true"
+                />
+                Loading...
+              </Button>
+            </ButtonToolbar>
+          ) : <SearchResult />}
+          
         </div>
       </div>
     )

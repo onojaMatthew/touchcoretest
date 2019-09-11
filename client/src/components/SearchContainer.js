@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import Search from "./Search";
 import { getCities } from "../store/actions/action_cities";
+import { postSearch } from "../store/actions/action_search";
 
 class SearchContainer extends Component{
   state = {
@@ -17,12 +18,12 @@ class SearchContainer extends Component{
   }
 
   render() {
-    const { cities } = this.props;
+    const { cities, postSearch, search } = this.props;
     return(
       <div>
         <Search 
           {...this.props}
-          cities={cities}
+          
         />
       </div>
     );
@@ -31,13 +32,15 @@ class SearchContainer extends Component{
 
 const mapStateToProps = (state) => {
   return {
-    cities: state.cities
+    cities: state.cities,
+    search: state.search,
   }
 }
 
 const mapDispatchToProps = (dispatch) => {
   const dispatchProps = {
-    getCities: (data) => dispatch(getCities())
+    getCities: (data) => dispatch(getCities()),
+    postSearch: (data) => dispatch(postSearch(data))
   }
   return dispatchProps;
 }
