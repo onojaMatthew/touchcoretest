@@ -7,7 +7,6 @@ exports.getFlightData = (req, res, next) => {
     .headers({ ACCEPT: "application/json", "Content-Type": "application/json" })
     .then(response => {
       const result = response.body.data;
-      console.log(result)
       res.json(result)
     })
     .catch(err => {
@@ -15,20 +14,15 @@ exports.getFlightData = (req, res, next) => {
     });
 }
 
-// Lo
+// Login controller
 exports.postLogin = (req, res) => {
-  const { email, password } = req.body;
-  console.log(email, password)
+  const { email, password } = req.body.data;
   request.post({
     headers: { "Accept": "application/json", "Content-Type" : "application/json" },
     url: 'http://www.ije-api.tcore.xyz/v1/auth/login',
     body: JSON.stringify(email, password)
   },(error, response, body) => {
     if (error) return res.status(400).json({ error: error.message });
-    console.log(body, " response");
-    // console.log(body, " body")
     res.json(body)
   });
 }
-
-// City api url http://www.ije-api.tcore.xyz/v1/plugins/cities-type-ahead/las

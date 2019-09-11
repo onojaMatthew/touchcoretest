@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { Router, Route, Switch } from "react-router-dom";
 import hist from "../helper/history";
-import Search from "./Search";
 import Login from './Login';
+import SearchContainer from './SearchContainer';
 
 class App extends Component{
   state = {
@@ -34,7 +34,7 @@ class App extends Component{
           <Router history={hist}>
           <Switch>
             <Route exact path="/" component={Login} />
-            <Route path="/search" component={(props) => <Search {...props} cabin={cabin}/>} /> 
+            <Route path="/search" component={(props) => <SearchContainer {...props} cabin={cabin}/>} /> 
           </Switch>
         </Router>
         </div>

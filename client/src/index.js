@@ -1,7 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import axios from "axios";
-import hist from "./helper/history";
 import { isAuthenticated } from "./helper/authenticated";
 import { createStore, applyMiddleware } from "redux";
 import { Provider } from "react-redux";

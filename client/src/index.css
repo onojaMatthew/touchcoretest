@@ -9,7 +9,7 @@ code {
     monospace;
 }
 
-.search-input {
+.search-input, .dept-city, .dest-city {
   width: 124px;
   height: 50px;
   border: none;
@@ -43,6 +43,3 @@ code {
   border-bottom-left-radius: 0;
 }
 
-.search-result-container {
-  
-}
