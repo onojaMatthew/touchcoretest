@@ -3,6 +3,7 @@ import { Router, Route, Switch } from "react-router-dom";
 import hist from "../helper/history";
 import Login from './Login';
 import SearchContainer from './SearchContainer';
+import PrivateRoute from "../helper/PrivateRoute";
 
 class App extends Component{
   state = {
@@ -34,7 +35,7 @@ class App extends Component{
           <Router history={hist}>
           <Switch>
             <Route exact path="/" component={Login} />
-            <Route path="/search" component={(props) => <SearchContainer {...props} cabin={cabin}/>} /> 
+            <PrivateRoute path="/search" component={(props) => <SearchContainer {...props} cabin={cabin}/>} /> 
           </Switch>
         </Router>
         </div>

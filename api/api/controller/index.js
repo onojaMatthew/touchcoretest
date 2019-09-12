@@ -16,8 +16,8 @@ exports.getFlightData = (req, res, next) => {
 
 // Login controller
 exports.postLogin = (req, res) => {
-  const { email, password } = req.body;
-  
+  const { email, password } = req.body.data;
+  console.log(email, password);
   unirest
     .post('http://www.ije-api.tcore.xyz/v1/auth/login')
     .headers({
@@ -26,8 +26,8 @@ exports.postLogin = (req, res) => {
     })
     .send(JSON.stringify({
       body: {
-        email: 'customer@travelportal.com',
-        password: 'customer'
+        email: email,
+        password: password
       }
     }))
     .then((response) => {
@@ -52,38 +52,57 @@ exports.getCabinType = (req, res) => {
     });
 }
 
+// Flight Search
 exports.postSearch = (req, res) => {
-//   "body": {
-//     "origin_destinations": [
-//         {
-//             "departure_city": "LOS",
-//             "destination_city": "DXB",
-//             "departure_date": "12/26/2019",
-//             "return_date": ""
-//         }
-//     ],
-//     "search_param": {
-//         "no_of_adult": 1,
-//         "no_of_child": 1,
-//         "no_of_infant": 0,
-//         "preferred_airline_code" : "",
-//         "calendar" : false,
-//         "cabin": "All"
-//     }
-// }
-  // request.post({
-    
-  //   "http://www.ije-api.tcore.xyz/v1/plugins/all"
-    
-  //   body: JSON.stringify()
-  // })
-  //   .then(async (response) => {
-  //     const result = await response.body;
-  //     res.json(result)
-  //   })
-  //   .catch(err => {
-  //     res.status(400).json(err.message)
-    // });
+  const { 
+    deptCity, 
+    destCity, 
+    deptDate, 
+    cabinClass, 
+    returnDate, 
+    noOfAdult, 
+    noOfChildren, 
+    noOfInfant,
+    token,
+  } = req.body
+
+
+  const origin_destinations = [
+    {
+        departure_city: deptCity,
+        destination_city: destCity,
+        departure_date: "09/26/2019",// deptDate
+        return_date: "09/27/2019"// returnDate
+    }
+  ];
+  const search_param =  {
+    no_of_adult: Number(noOfAdult),
+    no_of_child: Number(noOfChildren),
+    no_of_infant: Number(noOfInfant),
+    preferred_airline_code : "",
+    calendar : false,
+    cabin: cabinClass
+  }
+  console.log(req.body);
+  unirest
+    .post('http://www.ije-api.tcore.xyz/v1/flight/search-flight')
+    .headers({
+      cookie: token
+    })
+    .send(JSON.stringify({
+      body: {
+        origin_destinations: origin_destinations,
+        search_param: search_param,
+      }
+    }))
+    .then((response) => {
+      console.log(response.body)
+      res.json(response.body)
+    })
+    .catch(err => {
+      console.log(err.message)
+      res.json(err.message)
+    });
 }
 
 

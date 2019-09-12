@@ -32,9 +32,10 @@ export const postLogin = (data, userType) => {
     axios.post("http://localhost:8080/api/login", { data })
       .then(resp => {
         dispatch(postLoginSuccess(resp.data));
-        console.log(resp.data, " the response from the server");
-        Auth.authenticateUser(JSON.stringify(resp.data));
-        if (resp) {
+        const token = resp.data.body.data.api_token;
+        console.log(resp.data.body.status)
+        Auth.authenticateUser(JSON.stringify(token));
+        if (resp.data.body.status === 200) {
           history.push("/search");
         }
       })

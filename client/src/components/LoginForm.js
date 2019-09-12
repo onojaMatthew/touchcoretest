@@ -1,5 +1,5 @@
 import React from "react";
-import { Button, InputGroup, FormControl } from "react-bootstrap";
+import { Button, InputGroup, FormControl, ButtonToolbar, Spinner } from "react-bootstrap";
 
 const LoginForm = (props) => {
   console.log(props)
@@ -26,7 +26,23 @@ const LoginForm = (props) => {
                 type="password"
               />
             </InputGroup>
-            <Button onClick={(e) => props.onSubmit(e)}>Login</Button>
+            <div>
+              {props.login.isLoginLoading === true ? (
+                <ButtonToolbar>
+                  <Button variant="primary" disabled>
+                    <Spinner
+                      as="span"
+                      animation="grow"
+                      size="sm"
+                      role="status"
+                      aria-hidden="true"
+                    />
+                    Loading...
+                  </Button>
+                </ButtonToolbar>
+              ) : <Button onClick={(e) => props.onSubmit(e)}>Login</Button>}
+            </div>
+            
           </div>
         </div>
       </div>

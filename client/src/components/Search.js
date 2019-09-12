@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Button, ButtonToolbar, Spinner } from "react-bootstrap";
 import SearchResult from "./SearchResult";
+import { isAuthenticated } from "../helper/authenticated";
 
 class Search extends Component {
   state = {
@@ -12,28 +13,41 @@ class Search extends Component {
     noOfAdult: "",
     noOfChildren: "",
     noOfInfant: "",  
-
+    cabin_types: [ "All", "Business", "Economy", "First", "Premium" ],
+    errMsg: "",
   }
 
-  onSearch = () => {
-    const { deptCity, destCity, deptDate, cabinClass, returnDate, noOfAdult, noOfChildren, noOfInfant } = this.state;
-    const data = { deptCity, destCity, deptDate, cabinClass, returnDate, noOfAdult, noOfChildren, noOfInfant };
-    console.log(data);
-
+  onSearch = async () => {
+    const { postSearch } = this.props;
+    const token = isAuthenticated();
+    const { 
+      deptCity, destCity, deptDate, cabinClass, returnDate, noOfAdult, noOfChildren, noOfInfant 
+    } = this.state;
+    const data = { 
+      deptCity, destCity, deptDate, cabinClass, returnDate, noOfAdult, noOfChildren, noOfInfant, token
+    };
+   
+    try {
+      await postSearch(data);
+    } catch(err) {
+      console.log(err.message)
+      this.setState({ errMsg: err.message });
+    }
   }
   
   render() {
     const { cities, cabin: { cabin } } = this.props;
-    const cabinTypes = cabin && cabin.body && cabin.body.data && cabin.body.data.plugins && cabin.body.data.plugins.cabin_types;
     const { 
       deptDate,
       returnDate,
       noOfAdult,
       noOfChildren,
-      noOfInfant,  
+      cabinClass,
+      noOfInfant,
+      cabin_types,  
     } = this.state;
 
-    console.log(this.state)
+    console.log(cabinClass)
     return(
       <div>
         <div className="form-group">
@@ -76,8 +90,8 @@ class Search extends Component {
                 onChange={(e) => { this.setState({ cabinClass: e.target.value })}}
               >
                 <option>Cabin class</option>
-                {cabinTypes && cabinTypes.map((cabin, index) => (
-                  <option key={index} value={cabin.code}>{cabin.name}</option>
+                {cabin_types.map((cabin, index) => (
+                  <option key={index} value={cabin}>{cabin}</option>
                 ))}
               </select>
               <input 
@@ -105,7 +119,10 @@ class Search extends Component {
                 onChange={(e) => { this.setState({ noOfInfant: e.target.value })}}
                 value={noOfInfant} 
               />
-              <Button className="button">Search</Button>
+              <Button 
+                className="button"
+                onClick={this.onSearch}
+              >Search</Button>
             </div>
           </div>
         </div>

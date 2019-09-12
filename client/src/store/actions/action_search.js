@@ -35,6 +35,7 @@ export const postSearch = (data) => {
     })
       .then(response => response.json())
       .then(resp => {
+        console.log(resp, " this is the response from the search");
         dispatch(postSearchSuccess(resp));
       })
       .catch(err => {
