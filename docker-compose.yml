@@ -4,13 +4,13 @@ services:
   nginx: 
     build:
       context: ./nginx
-      dockerfile: Dockerfile
+      dockerfile: Dockerfile-dev
     ports:
-      - "80:80"
+      - "8000:80"
   client:
     build:
       context: ./client
-      dockerfile: Dockerfile
+      dockerfile: Dockerfile-dev
     expose:
       - '3000'
     volumes:
@@ -19,7 +19,7 @@ services:
   api:
     build:
       context: ./api
-      dockerfile: Dockerfile
+      dockerfile: Dockerfile-dev
     restart: "always"
     expose:
       - '8080'
