@@ -1,4 +1,4 @@
-const request = require("request");
+const moment = require("moment");
 const unirest = require("unirest");
 
 // We get the list of cities 
@@ -66,13 +66,15 @@ exports.postSearch = (req, res) => {
     token,
   } = req.body
 
-
+  const dept_date = moment(deptDate).format("MM/DD/YYYY");
+  const ret_date = moment(returnDate).format("MM/DD/YYYY");
+  
   const origin_destinations = [
     {
         departure_city: deptCity,
         destination_city: destCity,
-        departure_date: "09/26/2019",// deptDate
-        return_date: "09/27/2019"// returnDate
+        departure_date: dept_date,
+        return_date: ret_date
     }
   ];
   const search_param =  {
@@ -83,13 +85,18 @@ exports.postSearch = (req, res) => {
     calendar : false,
     cabin: cabinClass
   }
+  
   console.log(req.body);
+  
   unirest
     .post('http://www.ije-api.tcore.xyz/v1/flight/search-flight')
     .headers({
-      cookie: token
+      "Content-Type": "application/json",
     })
     .send(JSON.stringify({
+      header: {
+        cookie: token
+      },
       body: {
         origin_destinations: origin_destinations,
         search_param: search_param,
@@ -98,12 +105,11 @@ exports.postSearch = (req, res) => {
     .then((response) => {
       console.log(response.body)
       res.json(response.body)
+      return " Returned from server";
     })
     .catch(err => {
       console.log(err.message)
       res.json(err.message)
     });
 }
-
-
 

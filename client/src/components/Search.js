@@ -12,7 +12,7 @@ class Search extends Component {
     cabinClass: "",
     noOfAdult: "",
     noOfChildren: "",
-    noOfInfant: "",  
+    noOfInfant: "",
     cabin_types: [ "All", "Business", "Economy", "First", "Premium" ],
     errMsg: "",
   }
@@ -21,10 +21,11 @@ class Search extends Component {
     const { postSearch } = this.props;
     const token = isAuthenticated();
     const { 
-      deptCity, destCity, deptDate, cabinClass, returnDate, noOfAdult, noOfChildren, noOfInfant 
+      deptCity, destCity, deptDate, cabinClass, returnDate, noOfAdult, noOfChildren, noOfInfant,
     } = this.state;
     const data = { 
-      deptCity, destCity, deptDate, cabinClass, returnDate, noOfAdult, noOfChildren, noOfInfant, token
+      deptCity, 
+      destCity, deptDate, cabinClass, returnDate, noOfAdult, noOfChildren, noOfInfant, token
     };
    
     try {
@@ -47,7 +48,7 @@ class Search extends Component {
       cabin_types,  
     } = this.state;
 
-    console.log(cabinClass)
+    // AirportInput("id-of-the-input-1", options)
     return(
       <div>
         <div className="form-group">
@@ -62,6 +63,7 @@ class Search extends Component {
                   <option key={index} value={city.code}>{city.name}</option>
                 ))}
               </select>
+              
               <select 
                 className="dest-city"
                 onChange={(e) => {this.setState({ destCity: e.target.value })}}
@@ -125,7 +127,10 @@ class Search extends Component {
               >Search</Button>
             </div>
           </div>
+
+          
         </div>
+        
         <div className="mt-5">
           {this.props.search.isSearchLoading === true ? (
             <ButtonToolbar>
@@ -141,7 +146,6 @@ class Search extends Component {
               </Button>
             </ButtonToolbar>
           ) : <SearchResult />}
-          
         </div>
       </div>
     )

@@ -31,7 +31,7 @@ class App extends Component{
         <div className="jumbotron"></div>
         
         <div className="container">
-          <h2>{title}</h2>
+          <h2 style={styles.title}>{title}</h2>
           <Router history={hist}>
           <Switch>
             <Route exact path="/" component={Login} />
@@ -41,6 +41,12 @@ class App extends Component{
         </div>
       </div>
     );
+  }
+}
+
+const styles = {
+  title: {
+    color: "#e0a800"
   }
 }
 
