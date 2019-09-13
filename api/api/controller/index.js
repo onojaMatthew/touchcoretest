@@ -86,8 +86,6 @@ exports.postSearch = (req, res) => {
     cabin: cabinClass
   }
   
-  console.log(req.body);
-  
   unirest
     .post('http://www.ije-api.tcore.xyz/v1/flight/search-flight')
     .headers({
