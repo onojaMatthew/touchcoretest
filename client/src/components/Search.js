@@ -37,13 +37,12 @@ class Search extends Component {
   }
   
   render() {
-    const { cities, cabin: { cabin } } = this.props;
+    const { cities } = this.props;
     const { 
       deptDate,
       returnDate,
       noOfAdult,
       noOfChildren,
-      cabinClass,
       noOfInfant,
       cabin_types,  
     } = this.state;

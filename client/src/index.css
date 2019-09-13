@@ -19,7 +19,7 @@ code {
   font-weight: bold;
 }
 
-.search-input:first-of-type {
+.dept-city {
   border-top-left-radius: 3px;
   border-bottom-left-radius: 3px;
   outline: none;

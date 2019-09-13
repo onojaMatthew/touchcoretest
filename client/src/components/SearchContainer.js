@@ -21,7 +21,6 @@ class SearchContainer extends Component{
   }
 
   render() {
-    const { cities, postSearch, search } = this.props;
     return(
       <div>
         <Search 

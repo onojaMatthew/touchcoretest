@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Table, Card, Button } from "react-bootstrap";
+import { Card, Button } from "react-bootstrap";
 import thumbnail from "../asset/images/51x32.png"
 
 class SearchResult extends Component{
